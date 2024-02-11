@@ -1,3 +1,7 @@
 export default function Home() {
-  return <p>Hello board!</p>;
+  return (
+    <div className="flex flex-col gap-y-4">
+      User
+    </div>
+  );
 }
