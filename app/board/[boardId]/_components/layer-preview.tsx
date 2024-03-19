@@ -9,6 +9,8 @@ import Rectangle from "./rectangle";
 import Ellipse from "./ellipse";
 import Text from "./text";
 import Note from "./note";
+import Path from "./path";
+import { colorToHexcode } from "@/lib/utils";
 
 interface LayerPreviewProps {
   id: string;
@@ -25,6 +27,18 @@ const LayerPreview = memo(
     }
 
     switch (layer.type) {
+      case LayerType.Path:
+        return (
+          <Path
+            key={id}
+            points={layer.points}
+            onPointerDown={(e) => onLayerPointerDown(e, id)}
+            x={layer.x}
+            y={layer.y}
+            fill={layer.fill ? colorToHexcode(layer.fill) : "#000"}
+            stroke={selectionColor}
+          />
+        );
       case LayerType.Ellipse:
         return (
           <Ellipse
@@ -62,10 +76,9 @@ const LayerPreview = memo(
           />
         );
       default:
-        console.warn("Unknown layer type", layer.type);
+        console.warn("Unknown layer type");
+        return null;
     }
-
-    return <div></div>;
   }
 );
 
